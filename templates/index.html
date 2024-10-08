@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Classifier</title>
+   <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR63NlLZWh_3l5U6ENKYaJur0QaaIHcJgkDGQ&usqp=CAU') center center fixed;
+        background-size: cover;
+        color: #fff;
+    }
+
+    h1 {
+        text-align: center;
+        color: #000; /* Changed color to a golden yellow */
+        font-size: 50px; /* Increased font size */
+        font-family: 'Arial', sans-serif; /* Changed font family */
+        padding-top: 50px;
+    }
+
+    form {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        margin-top: 50px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    input {
+        width: calc(100% - 20px);
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 2px solid #555;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 15px auto; /* Adjusted padding to fit the text */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 0;
+        cursor: pointer;
+        border-radius: 25px; /* Adjusted border-radius for a rounded shape */
+        border: 2px solid #45a049; /* Added border for a distinct look */
+        transition: background-color 0.3s ease;
+        margin-left: 10px; /* Move the button to the right */
+        margin-right: 10px; /* Add some right margin for spacing */
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049; /* Darker shade of green on hover */
+    }
+
+</style>
+
+</head>
+<body>
+    <h1>Breast Cancer Classification</h1>
+    <form action="/predict" method="post">
+        <label for="id">ID:</label>
+        <input type="text" name="id" placeholder="ID" required><br>
+
+        <label for="radius_mean">Radius Mean:</label>
+        <input type="text" name="radius_mean" required>
+
+        <label for="texture_mean">Texture Mean:</label>
+        <input type="text" name="texture_mean" required>
+
+        <label for="perimeter_mean">Perimeter Mean:</label>
+        <input type="text" name="perimeter_mean" required>
+
+        <label for="area_mean">Area Mean:</label>
+        <input type="text" name="area_mean" required>
+
+        <label for="smoothness_mean">Smoothness Mean:</label>
+        <input type="text" name="smoothness_mean" required>
+
+        <label for="compactness_mean">Compactness Mean:</label>
+        <input type="text" name="compactness_mean" required>
+
+        <label for="concavity_mean">Concavity Mean:</label>
+        <input type="text" name="concavity_mean" required>
+
+        <label for="concave points_mean">Concave Points Mean:</label>
+        <input type="text" name="concave points_mean" required>
+
+        <label for="symmetry_mean">Symmetry Mean:</label>
+        <input type="text" name="symmetry_mean" required>
+
+        <label for="fractal_dimension_mean">Fractal Dimension Mean:</label>
+        <input type="text" name="fractal_dimension_mean" required>
+
+        <label for="radius_se">Radius SE:</label>
+        <input type="text" name="radius_se" required>
+
+        <label for="texture_se">Texture SE:</label>
+        <input type="text" name="texture_se" required>
+
+        <label for="perimeter_se">Perimeter SE:</label>
+        <input type="text" name="perimeter_se" required>
+
+        <label for="area_se">Area SE:</label>
+        <input type="text" name="area_se" required>
+
+        <label for="smoothness_se">Smoothness SE:</label>
+        <input type="text" name="smoothness_se" required>
+
+        <label for="compactness_se">Compactness SE:</label>
+        <input type="text" name="compactness_se" required>
+
+        <label for="concavity_se">Concavity SE:</label>
+        <input type="text" name="concavity_se" required>
+
+        <label for="concave points_se">Concave Points SE:</label>
+        <input type="text" name="concave points_se" required>
+
+        <label for="symmetry_se">Symmetry SE:</label>
+        <input type="text" name="symmetry_se" required>
+
+        <label for="fractal_dimension_se">Fractal Dimension SE:</label>
+        <input type="text" name="fractal_dimension_se" required>
+
+        <label for="radius_worst">Radius Worst:</label>
+        <input type="text" name="radius_worst" required>
+
+        <label for="texture_worst">Texture Worst:</label>
+        <input type="text" name="texture_worst" required>
+
+        <label for="perimeter_worst">Perimeter Worst:</label>
+        <input type="text" name="perimeter_worst" required>
+
+        <label for="area_worst">Area Worst:</label>
+        <input type="text" name="area_worst" required>
+
+        <label for="smoothness_worst">Smoothness Worst:</label>
+        <input type="text" name="smoothness_worst" required>
+
+        <label for="compactness_worst">Compactness Worst:</label>
+        <input type="text" name="compactness_worst" required>
+
+        <label for="concavity_worst">Concavity Worst:</label>
+        <input type="text" name="concavity_worst" required>
+
+        <label for="concave points_worst">Concave Points Worst:</label>
+        <input type="text" name="concave points_worst" required>
+
+        <label for="symmetry_worst">Symmetry Worst:</label>
+        <input type="text" name="symmetry_worst" required>
+
+        <label for="fractal_dimension_worst">Fractal Dimension Worst:</label>
+        <input type="text" name="fractal_dimension_worst" required>
+
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>

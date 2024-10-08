@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://previews.123rf.com/images/cienpies/cienpies1301/cienpies130100034/17628865-cancer-awareness-hand-people-campaign-over-icon-set-background-file-layered-for-easy-manipulation.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Set minimum height to full viewport height */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: stretch;
+            flex-grow: 1;
+        }
+
+        .result-container {
+            max-width: 600px; /* Adjusted max-width */
+            margin: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #333;
+        }
+
+        .chart-container {
+            flex-grow: 1;
+            margin: 20px;
+            display: flex;
+            justify-content: flex-end; /* Align to the right side */
+        }
+
+        .chart-container img {
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 100%; /* Adjusted max-width */
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        strong {
+            color: #4CAF50;
+        }
+
+        .probability {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .additional-info {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .navigation-btns {
+            display: flex;
+            justify-content: center; /* Center the buttons horizontally */
+            align-items: flex-end; /* Align to the bottom */
+            margin-top: auto; /* Align to the bottom */
+            padding: 20px 0; /* Add padding to create space around buttons */
+        }
+
+        .back-btn a,
+        .next-btn a {
+            text-decoration: none;
+            padding: 24px 24px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-right: 20px; /* Add margin between buttons */
+}
+
+
+        .back-btn a {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .back-btn a:hover {
+            background-color: #45a049;
+        }
+
+        .next-btn a {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .next-btn a:hover {
+            background-color: #007B9E;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Prediction Result</h1>
+    <div class="content-wrapper">
+        <div class="result-container">
+            <p>The model predicts that the tumor is: <strong>{{ result }}</strong></p>
+            {% if result == 'Benign' %}
+                <p>This type of tumor is generally non-cancerous (benign) and is less likely to spread to other parts of the body.</p>
+            {% elif result == 'Malignant' %}
+                <p>This type of tumor is cancerous (malignant) and has the potential to spread to other parts of the body.</p>
+            {% endif %}
+            {% if probability is defined %}
+                <p class="probability">Probability: {{ probability }}%</p>
+            {% endif %}
+            <div class="additional-info">
+                {% if result == 'Benign' %}
+                    <p>Benign tumors are typically not life-threatening and may not require aggressive treatment. However, regular monitoring and follow-up with a healthcare professional are recommended.</p>
+                    <p>Common types of benign breast tumors include fibroadenomas and cysts.</p>
+                {% elif result == 'Malignant' %}
+                    <p>Malignant tumors may require further diagnostic tests and aggressive treatment options, such as surgery, chemotherapy, or radiation therapy.</p>
+                    <p>Early detection and intervention play a crucial role in the successful treatment of malignant tumors.</p>
+                {% endif %}
+                <p>It is essential to consult with a healthcare professional for personalized guidance and a comprehensive treatment plan.</p>
+            </div>
+        </div>
+        {% if chart_image %}
+            <div class="chart-container">
+                <img src="{{ url_for('static', filename='feature_importances.png') }}" alt="Feature Importances">
+            </div>
+        {% endif %}
+    </div>
+    <div class="navigation-btns">
+        <div class="back-btn">
+            <a href="/">Go Back</a>
+        </div>
+        <div class="next-btn">
+            <a href="/overall_chart">Next</a>
+        </div>
+    </div>
+</body>
+
+</html>
